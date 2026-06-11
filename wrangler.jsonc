@@ -23,7 +23,7 @@
 				"BUILD_NONCE": "war-001"
 			},
 			"instance_type": "standard-4",
-			"max_instances": 100,
+			"max_instances": 10,
 			"rollout_step_percentage": [
 				10,
 				25,
@@ -33,7 +33,7 @@
 			"rollout_active_grace_period": 900,
 			"constraints": {
 				"regions": [
-					"APAC"
+					"ENAM","WNAM","EEUR","WEUR","APAC","SAM","ME","OC","AFR"
 				]
 			}
 		}
