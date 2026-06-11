@@ -23,7 +23,7 @@
 				"BUILD_NONCE": "war-001"
 			},
 			"instance_type": "standard-4",
-			"max_instances": 370,
+			"max_instances": 100,
 			"rollout_step_percentage": [
 				10,
 				25,
