@@ -1,0 +1,25 @@
+{
+  "name": "a-zz",
+  "version": "12.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+	"setup": "node scripts/setup.mjs",
+	"deploy": "node scripts/setup.mjs && wrangler deploy",
+	"deploy:worker": "node scripts/setup.mjs && wrangler deploy",
+	"dev": "wrangler dev",
+	"start": "wrangler dev",
+	"cf-typegen": "wrangler types",
+	"typecheck": "tsc --noEmit"
+},
+  "dependencies": {
+	"@cloudflare/containers": "^0.3.5",
+	"hono": "^4.7.6"
+},
+  "devDependencies": {
+	"@cloudflare/workers-types": "^4.20250523.0",
+	"@types/node": "^24.10.1",
+	"typescript": "^5.8.3",
+	"wrangler": "^4.14.4"
+}
+}

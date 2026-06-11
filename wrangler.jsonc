@@ -1,0 +1,92 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "a-zz",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-05-28",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": false
+	},
+	"placement": {
+		"mode": "smart"
+	},
+	"limits": {
+		"cpu_ms": 300000
+	},
+	"containers": [
+		{
+			"class_name": "AppNode",
+			"image": "./Dockerfile",
+			"image_vars": {
+				"BUILD_NONCE": "war-001"
+			},
+			"instance_type": "standard-4",
+			"max_instances": 370,
+			"rollout_step_percentage": [
+				10,
+				25,
+				50,
+				100
+			],
+			"rollout_active_grace_period": 900,
+			"constraints": {
+				"regions": [
+					"APAC"
+				]
+			}
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"class_name": "AppNode",
+				"name": "JOB_CONTAINER"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"AppNode"
+			]
+		}
+	],
+	"analytics_engine_datasets": [
+		{
+			"binding": "HEARTBEATS",
+			"dataset": "app_events"
+		},
+		{
+			"binding": "EVENTS",
+			"dataset": "app_metrics"
+		}
+	],
+	"workflows": [
+		{
+			"name": "maintenance",
+			"binding": "MAINTENANCE_TASK",
+			"class_name": "MaintenanceWorkflow",
+			"script_name": "war-001"
+		},
+		{
+			"name": "config-update",
+			"binding": "CONFIG_TASK",
+			"class_name": "ConfigWorkflow",
+			"script_name": "war-001"
+		},
+		{
+			"name": "scale-out",
+			"binding": "SCALE_TASK",
+			"class_name": "ScaleWorkflow",
+			"script_name": "war-001"
+		}
+	],
+	"triggers": {
+		"crons": [
+			"*/1 * * * *"
+		]
+	}
+}
